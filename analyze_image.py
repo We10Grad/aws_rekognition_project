@@ -1,6 +1,7 @@
 import boto3
 import os
 from datetime import datetime
+from decimal import Decimal
 
 def upload_to_s3(local_file_path, s3_key):
     """Upload a file to S3"""
@@ -31,7 +32,7 @@ def analyze_image(image_key):
     for label in response['Labels']:
         labels.append({
             'Name': label['Name'],
-            'Confidence': round(label['Confidence'], 2)
+            'Confidence': Decimal(str(round(label['Confidence'], 2)))
         })
     
     return labels
